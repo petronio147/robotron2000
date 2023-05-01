@@ -1,6 +1,5 @@
-const controle = document.querySelectorAll("[data-controle]");
-const estatisticas = document.querySelectorAll("[data-estatistica]");
-
+const controle = document.querySelectorAll("[data-controle]")
+const estatistica = document.querySelectorAll("[data-estatistica]")
 
 const pecas = {
     "bracos": {
@@ -36,29 +35,25 @@ const pecas = {
     }
 }
 
-/*Controle geral do robô*/
-controle.forEach( (elemento)  => {
-    elemento.addEventListener("click", (evento) => {
-        manipulaDados(evento.target.dataset.controle, evento.target.parentNode);
-        atualizaEstatisticas(evento.target.dataset.peca)        
+controle.forEach( (elemento) => {
+    elemento.addEventListener('click', (evento) => {
+        manipulaDados(evento.target.textContent, evento.target.parentNode)
+        atualizaEstatistica(evento.target.dataset.peca)
     })
 })
 
+function manipulaDados(operacao, controle) {
+    const peca = controle.querySelector("[data-contador]")
 
-/*Manipula adiconando mais ou subtrindo da montagem do robô*/
-function manipulaDados(operacao, controle){
-
-    const peca = controle.querySelector("[data-contador]");
-
-    if (operacao === "-"){
-        peca.value = parseInt(peca.value) - 1
-    }else{
+    if(operacao === "-") {
+        peca.value = parseInd(peca.value) - 1
+    } else {
         peca.value = parseInt(peca.value) + 1
     }
 }
 
-/*Atualiza as estatisticas geral do robô, montando para o melhor desempenho*/
-function atualizaEstatisticas(pecas){
-    console.log(pecas)
-
+function atualizaEstatistica(peca) {
+    estatistica.forEach( (elemento ) => {
+        elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica]
+    })
 }
